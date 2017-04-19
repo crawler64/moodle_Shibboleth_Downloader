@@ -7,7 +7,8 @@ Set the following in the file `config.ini` before running the script
 - `username` : your_Username
 - `password` : your_Password
 - `root_dir` : The root directory for where the files are to be stored
-- `url` : URL for moodle authentication
+- `moodle_url` : URL for moodle authentication / Where you type in your credentials
+- `shibboleth_url` : URL for the shibboleth server
 
 All the files are stored in their respective directories inside the `root_dir` with the names as in moodle.
 
