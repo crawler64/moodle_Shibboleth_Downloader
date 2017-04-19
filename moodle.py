@@ -30,10 +30,6 @@ opener.addheaders = [('User-agent', 'Mozilla\5.0')]
 # we just made, but you can also just call opener.open() if you want)
 urllib2.install_opener(opener)
 
-begrues = "hallo SN�T SN�T"
-print begrues
-
-
 # Input parameters we are going to send
 payload = {
     'j_username': shibboleth_username,
@@ -83,14 +79,14 @@ contents_shi_auth = response_shi_auth.read()
 
 
 # Verify the contents
-if "Kursübersicht" not in contents_shi_auth:
-    print("Cannot connect to moodle")
+if "KursÃ¼bersicht" not in contents_shi_auth:
+    print "Cannot connect to moodle"
     exit(1)
 
 print("Succesfully logged into Moodle Account")
 	
 # Filter received data
-courses = contents_shi_auth.split('<h2 id="instance-36165-header">Kursübersicht</h2>')[1].split('<aside id="block-region-side-pre" ')[0]
+courses = contents_shi_auth.split('-header">KursÃ¼bersicht</h2>')[1].split('<aside id="block-region-side-pre" ')[0]
 
 regex = re.compile('<h2 class="title">(.*?)</h2>')
 course_list = regex.findall(courses)
@@ -100,7 +96,7 @@ courses = []
 for course_string in course_list:
     soup = BeautifulSoup(course_string, "html.parser")
     a = soup.find('a')
-    course_name = a.text
+    course_name = a.text.decode('utf-8')
     course_link = a.get('href')
     courses.append([course_name, course_link])
 
