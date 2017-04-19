@@ -1,4 +1,4 @@
-# moodle_Shibboleth_Downloader
+# moodle Shibboleth Downloader
 
 The `moodle.py` script downloads all the files posted in the course page of all the courses in your moodle page. Files with the same name in a course are not downloaded and are ignored.
 
