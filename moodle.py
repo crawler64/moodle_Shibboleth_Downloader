@@ -96,7 +96,7 @@ courses = []
 for course_string in course_list:
     soup = BeautifulSoup(course_string, "html.parser")
     a = soup.find('a')
-    course_name = a.text.decode('utf-8')
+    course_name = a.text
     course_link = a.get('href')
     courses.append([course_name, course_link])
 
@@ -142,7 +142,7 @@ for course in courses:
 		
 		else:
 			url = webFile.geturl().split('/')[-1].split('?')[0]
-			file_name = current_dir + urllib.unquote(url).decode('utf-8')
+			file_name = current_dir + urllib.unquote(url).encode('utf-8')
 			
 		if os.path.isfile(file_name):
 			print "File found : ", file_name
