@@ -8,17 +8,15 @@ Set the following in the file `config.ini` before running the script
 - `password` : your_Password
 - `root_dir` : The root directory for where the files are to be stored
 - `moodle_url` : URL for moodle authentication / Where you type in your credentials
-- `shibboleth_url` : URL for the shibboleth server
+
 
 All the files are stored in their respective directories inside the `root_dir` with the names as in moodle.
-
-`Cannot connect to moodle` : Authentication failure or moodle is down.
 
 
 #### REQUIREMENTS
 
-- Python 2.7+
-- Beautifulsoup - `sudo apt-get install python-beautifulsoup`
+- Python 2.7
+- mechanize - `sudo apt-get install mechanize`
 
 ### EXTRAS
 
