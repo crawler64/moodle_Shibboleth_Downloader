@@ -1,5 +1,5 @@
 # encoding=utf8  
-import sys  
+import sys, getopt
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -10,6 +10,30 @@ import ssl
 import os
 import os.path
 from ConfigParser import ConfigParser
+
+# moodle.py -d 1/True turns Debug mode on. 
+# You can turn this on, to turn on the "file found:" comment, just to check
+
+
+def main(argv):
+   Debug = False
+   try:
+      opts, args = getopt.getopt(argv,"d:",["dbgpara="])
+	
+   except getopt.GetoptError:
+		Debug = False
+		return Debug
+	
+   for opt, arg in opts:
+	if opt in ("-d","--dbgpara"):
+		if (arg == 'True') or (arg == '1'):
+			Debug = True
+	return Debug
+
+
+if __name__ == "__main__":
+   Debug = main(sys.argv[1:])
+
 
 conf = ConfigParser()
 project_dir = os.path.dirname(os.path.abspath(__file__))
@@ -51,7 +75,7 @@ for links_mainpage in br.links(url_regex="moodle.hm.edu/course/view.php?"):
 			os.mkdir(root_directory + "/" + links_mainpage.text)
 			
 		except WindowsError:
-			print ('ERROR: Ordnerfehler ' + file_info)
+			print ('ERROR: Directory Error ' + file_info)
 			br.back()
 			continue
 	response = br.follow_link(links_mainpage)
@@ -63,7 +87,8 @@ for links_mainpage in br.links(url_regex="moodle.hm.edu/course/view.php?"):
 			filename = root_directory + "/" + links_mainpage.text + "/" + file_info
 			br.back()
 			if os.path.isfile(filename):
-				print "File found : ", file_info
+				if(Debug):
+					print "File found : ", file_info
 				continue	
 			print("Getting " + file_info)
 			br.retrieve(links_subpage.url,filename)[0]
@@ -80,7 +105,8 @@ for links_mainpage in br.links(url_regex="moodle.hm.edu/course/view.php?"):
 					filename_pop =  root_directory + "/" + links_mainpage.text + "/" + filename_info
 					br.back()
 					if os.path.isfile(filename_pop):
-						print "File found : ", filename_info
+						if(Debug):
+							print "File found : ", filename_info
 						continue
 					print("Getting " + filename_info)
 					br.retrieve(links_popup.url,filename_pop)[0]
